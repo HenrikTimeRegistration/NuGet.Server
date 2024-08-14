@@ -8,8 +8,8 @@
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.4.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NuGet.Core\NuGet.Service.Core.csproj" />
-    <ProjectReference Include="..\NuGet.Server\NuGet.Service.csproj" />
+    <ProjectReference Include="..\..\src\NuGet.Core\NuGet.Service.Core.csproj" />
+    <ProjectReference Include="..\..\src\NuGet.Server\NuGet.Service.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
