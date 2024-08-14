@@ -4,11 +4,8 @@
 using NuGet.Service.Core;
 using NuGet.Service.Core.Package;
 using NuGet.Versioning;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace NuGet.Server.Core.Infrastructure
+namespace NuGet.Service.Core
 {
     public interface IServerPackageRepository
     {
