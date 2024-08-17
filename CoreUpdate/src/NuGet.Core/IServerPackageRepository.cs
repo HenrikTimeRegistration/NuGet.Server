@@ -33,5 +33,8 @@ namespace NuGet.Service.Core
         Task ClearCacheAsync(CancellationToken token);
 
         Task RemovePackageAsync(string packageId, SemanticVersion version, CancellationToken token);
+
+        Task<IServerPackage> FindPackageAsync(string packageId, SemanticVersion version, CancellationToken token);
+        Task<IServerPackage> FindPackageAsync(string packageId, ClientCompatibility version, CancellationToken token);
     }
 }
