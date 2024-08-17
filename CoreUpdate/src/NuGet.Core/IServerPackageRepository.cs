@@ -4,11 +4,8 @@
 using NuGet.Service.Core;
 using NuGet.Service.Core.Package;
 using NuGet.Versioning;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace NuGet.Server.Core.Infrastructure
+namespace NuGet.Service.Core
 {
     public interface IServerPackageRepository
     {
@@ -36,5 +33,8 @@ namespace NuGet.Server.Core.Infrastructure
         Task ClearCacheAsync(CancellationToken token);
 
         Task RemovePackageAsync(string packageId, SemanticVersion version, CancellationToken token);
+
+        Task<IServerPackage> FindPackageAsync(string packageId, SemanticVersion version, CancellationToken token);
+        Task<IServerPackage> FindPackageAsync(string packageId, ClientCompatibility version, CancellationToken token);
     }
 }
