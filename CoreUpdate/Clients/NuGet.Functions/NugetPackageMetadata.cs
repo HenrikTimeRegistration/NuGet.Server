@@ -12,31 +12,30 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 
-namespace NuGet.Functions
+namespace NuGet.Functions;
+
+public class NugetPackageMetadata
 {
-    public class NugetPackageMetadata
+    private readonly ILogger<NugetPackageMetadata> _logger;
+
+    public NugetPackageMetadata(ILogger<NugetPackageMetadata> log)
     {
-        private readonly ILogger<NugetPackageMetadata> _logger;
+        _logger = log;
+    }
 
-        public NugetPackageMetadata(ILogger<NugetPackageMetadata> log)
-        {
-            _logger = log;
-        }
-
-        [FunctionName("GetPackageMetadata")]
-        [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Name** parameter")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
-        public async Task<IActionResult> GetPackageMetadata(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "v3/PackageMetadata/{id}/index.josn")]
-            HttpRequest req,
-            string id,
-            CancellationToken token = default)
-        {
-            await Task.CompletedTask;
-            return new OkResult();
-        }
+    [FunctionName("GetPackageMetadata")]
+    [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
+    [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+    [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Name** parameter")]
+    [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
+    public async Task<IActionResult> GetPackageMetadata(
+        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "v3/PackageMetadata/{id}/index.josn")]
+        HttpRequest req,
+        string id,
+        CancellationToken token = default)
+    {
+        await Task.CompletedTask;
+        return new OkResult();
     }
 }
 

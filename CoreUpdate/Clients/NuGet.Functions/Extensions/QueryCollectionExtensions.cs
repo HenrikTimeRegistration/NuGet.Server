@@ -2,6 +2,7 @@
 using NuGet.Service.Core;
 
 namespace NuGet.Functions.Extensions;
+
 internal static class QueryCollectionExtensions
 {
     internal static SecretsTokens GetSecretsTokens(this IQueryCollection query)

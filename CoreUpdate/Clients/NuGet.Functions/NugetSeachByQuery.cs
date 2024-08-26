@@ -12,28 +12,27 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using NuGet.Functions.Extensions;
 
-namespace NuGet.Functions
+namespace NuGet.Functions;
+
+public class NugetSeachByQuery
 {
-    public class NugetSeachByQuery
+    private readonly ILogger<NugetSeachByQuery> _logger;
+
+    public NugetSeachByQuery(ILogger<NugetSeachByQuery> log)
     {
-        private readonly ILogger<NugetSeachByQuery> _logger;
+        _logger = log;
+    }
 
-        public NugetSeachByQuery(ILogger<NugetSeachByQuery> log)
-        {
-            _logger = log;
-        }
-
-        [FunctionName(nameof(GetPackagesBuQuerySeach))]
-        [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Name** parameter")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
-        public async Task<IActionResult> GetPackagesBuQuerySeach(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "query")] HttpRequest req)
-        {
-            var secretsTokens = req.Query.GetSecretsTokens();
-            return new OkResult();
-        }
+    [FunctionName(nameof(GetPackagesBuQuerySeach))]
+    [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
+    [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+    [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Name** parameter")]
+    [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
+    public async Task<IActionResult> GetPackagesBuQuerySeach(
+        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "query")] HttpRequest req)
+    {
+        var secretsTokens = req.Query.GetSecretsTokens();
+        return new OkResult();
     }
 }
 
