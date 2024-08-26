@@ -1,25 +1,19 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
-using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using NuGet.Service.Core;
 using System.Net;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using NuGet.Service.Core;
-using Microsoft.OpenApi.Validations.Rules;
-using System.Net.Mime;
 
 namespace NuGet.Functions;
 
 public class NugetPackageUpdate
 {
-    public NugetPackageUpdate(ILogger<NugetPackage> log, PackageCreateAndUpdate packageCreateAndUpdate)
+    public NugetPackageUpdate(ILogger<NugetPackage> log, IPackageCreateAndUpdate packageCreateAndUpdate)
     {
         Logger = log;
         PackageCreateAndUpdate = packageCreateAndUpdate;
@@ -27,7 +21,7 @@ public class NugetPackageUpdate
 
     private ILogger<NugetPackage> Logger { get; init; }
 
-    private PackageCreateAndUpdate PackageCreateAndUpdate { get; init; }
+    private IPackageCreateAndUpdate PackageCreateAndUpdate { get; init; }
 
     [FunctionName(nameof(PutPackageAsync))]
     [OpenApiOperation(operationId: "Packages")]
@@ -37,7 +31,7 @@ public class NugetPackageUpdate
         HttpRequest req,
         CancellationToken token = default)
     {
-        if(!req.ContentType.Equals("multipart/form-data"))
+        if (!req.ContentType.Equals("multipart/form-data"))
         {
             return new BadRequestResult();
         }

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
-using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NuGet.Service.Core;
@@ -15,14 +14,14 @@ namespace NuGet.Functions;
 
 public class NugetPackage
 {
-    public NugetPackage(ILogger<NugetPackage> log, PackageData packageData)
+    public NugetPackage(ILogger<NugetPackage> log, IPackageData packageData)
     {
         Logger = log;
     }
 
     private ILogger<NugetPackage> Logger { get; init; }
 
-    private PackageData PackageData { get; init; }
+    private IPackageData PackageData { get; init; }
 
     [FunctionName(nameof(GetPackagesAsync))]
     [OpenApiOperation(operationId: "Packages")]
