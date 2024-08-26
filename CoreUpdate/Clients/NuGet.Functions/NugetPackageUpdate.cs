@@ -51,6 +51,8 @@ public class NugetPackageUpdate
         string version,
         CancellationToken token = default)
     {
+        id = id.ToLower();
+        version = version.ToLower();
         await PackageCreateAndUpdate.DeletePackageAsync(id, version);
         return new StatusCodeResult(StatusCodes.Status204NoContent);
     }
@@ -66,6 +68,8 @@ public class NugetPackageUpdate
         string version,
         CancellationToken token = default)
     {
+        id = id.ToLower();
+        version = version.ToLower();
         await PackageCreateAndUpdate.RelistPackageAsync(id, version);
         return new OkResult();
     }

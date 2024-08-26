@@ -32,6 +32,7 @@ public class NugetPackageMetadata
         string id,
         CancellationToken token = default)
     {
+        id = id.ToLower();
         await Task.CompletedTask;
         return new OkResult();
     }

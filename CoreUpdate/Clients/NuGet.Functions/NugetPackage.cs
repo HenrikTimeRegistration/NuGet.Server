@@ -14,7 +14,7 @@ namespace NuGet.Functions;
 
 public class NugetPackage
 {
-    public NugetPackage(ILogger<NugetPackage> log, IPackageData packageData)
+    public NugetPackage(ILogger<NugetPackage> log, IPackageData packageData, INugetPackageCRUD packageStoreage)
     {
         Logger = log;
     }
@@ -22,6 +22,8 @@ public class NugetPackage
     private ILogger<NugetPackage> Logger { get; init; }
 
     private IPackageData PackageData { get; init; }
+
+    private INugetPackageCRUD packageStoreage { get; init; }
 
     [FunctionName(nameof(GetPackagesAsync))]
     [OpenApiOperation(operationId: "Packages")]
@@ -33,6 +35,7 @@ public class NugetPackage
         string id,
         CancellationToken token = default)
     {
+        id = id.ToLower();
         return new OkObjectResult(await PackageData.GetListOfVersionsAsync(id));
     }
 
@@ -50,13 +53,17 @@ public class NugetPackage
         string combined,
         CancellationToken token = default)
     {
+        id = id.ToLower();
+        version = version.ToLower();
+        combined = combined.ToLower();
         if (!combined.Equals($"{id}.{version}"))
         {
             return new StatusCodeResult(StatusCodes.Status400BadRequest);
         }
         await Task.CompletedTask;
 
-        return new OkResult();
+
+        return new FileStreamResult(await packageStoreage.GetNugetPackageAsync(id, version), "multipart/form-data");
     }
 
     [FunctionName(nameof(GetPackageManifestAsync))]
@@ -73,6 +80,9 @@ public class NugetPackage
         string name,
         CancellationToken token = default)
     {
+        id = id.ToLower();
+        version = version.ToLower();
+        name = name.ToLower();
         if (!name.Equals($"{id}"))
         {
             return new StatusCodeResult(StatusCodes.Status400BadRequest);
