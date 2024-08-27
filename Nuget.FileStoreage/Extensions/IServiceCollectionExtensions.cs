@@ -1,13 +1,22 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Nuget.FileStorage.Data;
 using NuGet.Service.Core;
 
-namespace Nuget.StorageAccount.Extensions;
+namespace Nuget.FileStorage.Extensions;
 
 public static class IServiceCollectionExtensions
 {
-    public static IServiceCollection AddStorage(this IServiceCollection services)
+    public static void AddFileStorage(this IServiceCollection serviceCollection, string ConfigName)
     {
-        services.AddScoped<INugetPackageCRUD, PackageCRUD>();
-        return services;
+        serviceCollection.AddOptions<DirectoryOptions>()
+            .Configure<IConfiguration>((directoryOptions, configuration) =>
+            {
+                configuration
+                    .GetSection(ConfigName)
+                    .Bind(directoryOptions);
+            });
+
+        serviceCollection.AddScoped<INugetPackageCRUD, PackageCRUD>();
     }
 }

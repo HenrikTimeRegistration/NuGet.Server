@@ -5,7 +5,7 @@ using NuGet.Service.Core.Exceptions;
 using NuGet.Service.Core.ResoultObject;
 using System.IO;
 
-namespace Nuget.StorageAccount;
+namespace Nuget.FileStorage;
 
 internal class PackageCRUD : INugetPackageCRUD
 {
@@ -25,7 +25,7 @@ internal class PackageCRUD : INugetPackageCRUD
     {
         var path = Path.Combine(DirectoryOptions.BaseFilePath, DirectoryOptions.Prefix + identity.Id);
         Directory.CreateDirectory(path);
-        path = Path.Combine( path, DirectoryOptions.Prefix + identity.Version + Nupkg);
+        path = Path.Combine(path, DirectoryOptions.Prefix + identity.Version + Nupkg);
         if (File.Exists(path))
         {
             throw new NugetPackageAlreadyExistException();

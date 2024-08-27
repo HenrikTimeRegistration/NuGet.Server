@@ -5,9 +5,14 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
 using NuGet.Service.Core;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
+using System.Collections.Generic;
 
 namespace NuGet.Functions;
 
@@ -24,8 +29,9 @@ public class NugetPackageUpdate
     private IPackageCreateAndUpdate PackageCreateAndUpdate { get; init; }
 
     [FunctionName(nameof(PutPackageAsync))]
-    [OpenApiOperation(operationId: "Packages")]
-    [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "multipart/form-data", bodyType: typeof(string), Description = "The OK response")]
+    [OpenApiOperation(operationId: "NugetPackageUpdate", Visibility = OpenApiVisibilityType.Advanced)]
+    [OpenApiRequestBody(contentType: "multipart/form-data", bodyType: typeof(MultiPartFormDataModel), Required = true, Description = "Files to upload to Azure Storage")]
+    [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.OK, Description = "The OK response")]
     public async Task<IActionResult> PutPackageAsync(
         [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "v2/package")]
         HttpRequest req,
@@ -73,4 +79,9 @@ public class NugetPackageUpdate
         await PackageCreateAndUpdate.RelistPackageAsync(id, version);
         return new OkResult();
     }
+}
+
+public class MultiPartFormDataModel
+{
+    public byte[] FileUpload { get; set; }
 }

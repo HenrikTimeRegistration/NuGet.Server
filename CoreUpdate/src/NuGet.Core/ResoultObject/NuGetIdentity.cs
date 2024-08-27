@@ -3,8 +3,8 @@ public class NuGetIdentity
 {
     private string id;
 
-    private string version;
+    private string version = string.Empty;
 
     public required string Id { get => id; set => id = value.ToLower(); }
-    public required string Version { get => version; set => version = value.ToLower(); }
+    public string Version { get => version; set => version = value.ToLower(); }
 }
