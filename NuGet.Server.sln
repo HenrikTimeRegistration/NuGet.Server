@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NuGet.Service.Core", "CoreU
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nuget.StorageAccount", "CoreUpdate\Storeage\Nuget.StorageAccount\Nuget.StorageAccount.csproj", "{F7B5D357-D32D-46BB-8D4B-02D3606E26AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuget.FileStorage", "Nuget.FileStoreage\Nuget.FileStorage.csproj", "{8A33AA49-231D-44A0-B648-384BD985D2C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Coverage|Any CPU = Coverage|Any CPU
@@ -125,6 +127,26 @@ Global
 		{F7B5D357-D32D-46BB-8D4B-02D3606E26AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F7B5D357-D32D-46BB-8D4B-02D3606E26AD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F7B5D357-D32D-46BB-8D4B-02D3606E26AD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Coverage|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Coverage|Any CPU.Build.0 = Debug|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Coverage|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Coverage|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Mono Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Mono Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Mono Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Mono Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Mono Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Mono Release|Any CPU.Build.0 = Release|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Mono Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Mono Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +160,7 @@ Global
 		{08368F9E-4D68-4FA4-B3B4-035B46094C2A} = {E9D40FB4-1C99-442B-9AA0-3CD1666FAD65}
 		{2CB7F662-F3F7-4DB0-BCDE-6A1E2E7940EC} = {E9D40FB4-1C99-442B-9AA0-3CD1666FAD65}
 		{F7B5D357-D32D-46BB-8D4B-02D3606E26AD} = {D0434D69-A0D7-4C07-9185-8572792B4220}
+		{8A33AA49-231D-44A0-B648-384BD985D2C8} = {D0434D69-A0D7-4C07-9185-8572792B4220}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {65B33E36-8F0F-4E6B-9143-C5C34911F25F}

@@ -1,10 +1,12 @@
 ﻿using Azure.Storage.Blobs;
 using Microsoft.Extensions.Logging;
 using NuGet.Service.Core;
+using NuGet.Service.Core.Exceptions;
+using NuGet.Service.Core.ResoultObject;
 
 namespace Nuget.StorageAccount;
 
-public class PackageCRUD : INugetPackageCRUD
+internal class PackageCRUD : INugetPackageCRUD
 {
     public PackageCRUD(ILogger<PackageCRUD> logger, BlobServiceClient blobServiceClient)
     {
@@ -16,32 +18,37 @@ public class PackageCRUD : INugetPackageCRUD
 
     private ILogger<PackageCRUD> Logger { get; init; }
 
-    public async Task AddNugetPackageAsync(Stream location, string id, string version)
+    public async Task AddNugetPackageAsync(Stream location, NuGetIdentity identity)
     {
-        var containerClient = BlobServiceClient.GetBlobContainerClient(id);
+        var containerClient = BlobServiceClient.GetBlobContainerClient(identity.Id);
         containerClient.CreateIfNotExists();
-        await containerClient.UploadBlobAsync(version, location);
+        var blob = containerClient.GetBlobClient(identity.Version);
+        if (!blob.Exists())
+        {
+            throw new NugetPackageAlreadyExistException();
+        }
+        await blob.UploadAsync(location);
     }
 
-    public async Task DeleteNugetPackage(string id, string version)
+    public async Task DeleteNugetPackage(NuGetIdentity identity)
     {
-        var containerClient = BlobServiceClient.GetBlobContainerClient(id);
+        var containerClient = BlobServiceClient.GetBlobContainerClient(identity.Id);
         if (!containerClient.Exists())
         {
             return;
         }
-        await containerClient.DeleteBlobIfExistsAsync(version);
+        await containerClient.DeleteBlobIfExistsAsync(identity.Version);
     }
 
-    public async Task<Stream> GetNugetPackageAsync(string id, string version)
+    public async Task<Stream> GetNugetPackageAsync(NuGetIdentity identity)
     {
-        var containerClient = BlobServiceClient.GetBlobContainerClient(id);
+        var containerClient = BlobServiceClient.GetBlobContainerClient(identity.Id);
         if (containerClient.Exists())
         {
             throw new FileNotFoundException();
         }
 
-        var BlobClient = containerClient.GetBlobClient(version);
+        var BlobClient = containerClient.GetBlobClient(identity.Version);
         return await BlobClient.OpenReadAsync();
     }
 }

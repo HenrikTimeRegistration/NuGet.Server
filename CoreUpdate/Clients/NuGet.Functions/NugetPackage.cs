@@ -6,6 +6,7 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NuGet.Service.Core;
+using NuGet.Service.Core.ResoultObject;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -53,17 +54,16 @@ public class NugetPackage
         string combined,
         CancellationToken token = default)
     {
-        id = id.ToLower();
-        version = version.ToLower();
+        var identity = new NuGetIdentity() { Id = id, Version = version };
         combined = combined.ToLower();
-        if (!combined.Equals($"{id}.{version}"))
+        if (!combined.Equals($"{identity.Id}.{identity.Version}"))
         {
             return new StatusCodeResult(StatusCodes.Status400BadRequest);
         }
         await Task.CompletedTask;
 
 
-        return new FileStreamResult(await packageStoreage.GetNugetPackageAsync(id, version), "multipart/form-data");
+        return new FileStreamResult(await packageStoreage.GetNugetPackageAsync(identity), "multipart/form-data");
     }
 
     [FunctionName(nameof(GetPackageManifestAsync))]
