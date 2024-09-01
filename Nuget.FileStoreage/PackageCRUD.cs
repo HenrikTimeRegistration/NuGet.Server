@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Nuget.FileStorage.Data;
 using NuGet.Service.Core;
 using NuGet.Service.Core.Exceptions;
@@ -7,11 +8,11 @@ using System.IO;
 
 namespace Nuget.FileStorage;
 
-internal class PackageCRUD : INugetPackageCRUD
+public class PackageCRUD : INugetPackageCRUD
 {
     private const string Nupkg = ".nupkg";
 
-    internal PackageCRUD(ILogger<PackageCRUD> logger, DirectoryOptions directoryOptions)
+    public PackageCRUD(ILogger<PackageCRUD> logger, DirectoryOptions directoryOptions)
     {
         Logger = logger;
         DirectoryOptions = directoryOptions;

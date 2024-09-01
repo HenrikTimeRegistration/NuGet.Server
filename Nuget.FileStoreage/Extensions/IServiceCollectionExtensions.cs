@@ -9,13 +9,9 @@ public static class IServiceCollectionExtensions
 {
     public static void AddFileStorage(this IServiceCollection serviceCollection, string ConfigName)
     {
-        serviceCollection.AddOptions<DirectoryOptions>()
-            .Configure<IConfiguration>((directoryOptions, configuration) =>
-            {
-                configuration
-                    .GetSection(ConfigName)
-                    .Bind(directoryOptions);
-            });
+        serviceCollection.AddSingleton<DirectoryOptions>( x => 
+            x.GetRequiredService<IConfiguration>().GetRequiredSection(ConfigName).Get<DirectoryOptions>() ?? 
+            throw new NullReferenceException());
 
         serviceCollection.AddScoped<INugetPackageCRUD, PackageCRUD>();
     }

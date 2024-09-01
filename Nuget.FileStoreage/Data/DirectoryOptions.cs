@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Nuget.FileStorage.Data;
 
-internal class DirectoryOptions
+public class DirectoryOptions
 {
     public required string BaseFilePath { get; init; }
 

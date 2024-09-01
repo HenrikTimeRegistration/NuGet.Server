@@ -6,7 +6,7 @@ using NuGet.Service.Core.ResoultObject;
 
 namespace Nuget.StorageAccount;
 
-internal class PackageCRUD : INugetPackageCRUD
+public class PackageCRUD : INugetPackageCRUD
 {
     public PackageCRUD(ILogger<PackageCRUD> logger, BlobServiceClient blobServiceClient)
     {

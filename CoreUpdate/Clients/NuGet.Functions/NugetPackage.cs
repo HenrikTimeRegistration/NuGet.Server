@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
+using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using NuGet.Service.Core;
 using NuGet.Service.Core.ResoultObject;
 using System.Net;
@@ -26,7 +24,7 @@ public class NugetPackage
 
     private INugetPackageCRUD packageStoreage { get; init; }
 
-    [FunctionName(nameof(GetPackagesAsync))]
+    [Function(nameof(GetPackagesAsync))]
     [OpenApiOperation(operationId: "Packages")]
     [OpenApiParameter("id", Description = "The package name")]
     [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
@@ -40,7 +38,7 @@ public class NugetPackage
         return new OkObjectResult(await PackageData.GetListOfVersionsAsync(id));
     }
 
-    [FunctionName(nameof(GetPackageAsync))]
+    [Function(nameof(GetPackageAsync))]
     [OpenApiOperation(operationId: "Packages")]
     [OpenApiParameter("id", Description = "The package name")]
     [OpenApiParameter("version", Description = "The package version")]
@@ -66,7 +64,7 @@ public class NugetPackage
         return new FileStreamResult(await packageStoreage.GetNugetPackageAsync(identity), "multipart/form-data");
     }
 
-    [FunctionName(nameof(GetPackageManifestAsync))]
+    [Function(nameof(GetPackageManifestAsync))]
     [OpenApiOperation(operationId: "Packages")]
     [OpenApiParameter("id", Description = "The package name")]
     [OpenApiParameter("version", Description = "The package version")]

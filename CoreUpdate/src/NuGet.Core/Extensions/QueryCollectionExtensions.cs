@@ -3,9 +3,9 @@ using NuGet.Service.Core;
 
 namespace NuGet.Functions.Extensions;
 
-internal static class QueryCollectionExtensions
+public static class QueryCollectionExtensions
 {
-    internal static SecretsTokens GetSecretsTokens(this IQueryCollection query)
+    public static SecretsTokens GetSecretsTokens(this IQueryCollection query)
     {
         var secretsTokens = new SecretsTokens();
         if (query.TryGetValue(nameof(secretsTokens.q), out var q))

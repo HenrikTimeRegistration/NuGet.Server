@@ -31,7 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NuGet.Service.Core", "CoreU
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nuget.StorageAccount", "CoreUpdate\Storeage\Nuget.StorageAccount\Nuget.StorageAccount.csproj", "{F7B5D357-D32D-46BB-8D4B-02D3606E26AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuget.FileStorage", "Nuget.FileStoreage\Nuget.FileStorage.csproj", "{8A33AA49-231D-44A0-B648-384BD985D2C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nuget.FileStorage", "Nuget.FileStoreage\Nuget.FileStorage.csproj", "{8A33AA49-231D-44A0-B648-384BD985D2C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGet.WebApp", "NuGet.WebApp\NuGet.WebApp.csproj", "{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,6 +149,26 @@ Global
 		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8A33AA49-231D-44A0-B648-384BD985D2C8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Coverage|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Coverage|Any CPU.Build.0 = Debug|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Coverage|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Coverage|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Mono Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Mono Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Mono Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Mono Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Mono Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Mono Release|Any CPU.Build.0 = Release|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Mono Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Mono Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -161,6 +183,7 @@ Global
 		{2CB7F662-F3F7-4DB0-BCDE-6A1E2E7940EC} = {E9D40FB4-1C99-442B-9AA0-3CD1666FAD65}
 		{F7B5D357-D32D-46BB-8D4B-02D3606E26AD} = {D0434D69-A0D7-4C07-9185-8572792B4220}
 		{8A33AA49-231D-44A0-B648-384BD985D2C8} = {D0434D69-A0D7-4C07-9185-8572792B4220}
+		{DBD39E7A-3D96-4DB0-BAD8-CBC1A8CF8635} = {6A4FF545-C6C8-4F7B-821F-4720870CCBDD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {65B33E36-8F0F-4E6B-9143-C5C34911F25F}
