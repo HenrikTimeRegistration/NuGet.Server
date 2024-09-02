@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
-using NuGet.Service.Core;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using System.Net;
 using Microsoft.Azure.Functions.Worker.Http;
 using System.IO;
+using NuGet.Service.Core.Interfaces.Logic;
 
 namespace NuGet.Functions;
 

@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Nuget.FileStoreage\Nuget.FileStorage.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="%25LocalAppData%25\NugetService\" />
+  </ItemGroup>
+
 </Project>

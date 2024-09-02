@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using NuGet.Service.Core;
+using NuGet.Service.Core.Interfaces.Storage;
 
 namespace Nuget.StorageAccount.Extensions;
 

@@ -5,7 +5,7 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using NuGet.Functions.Extensions;
+using NuGet.Service.Core.Extensions;
 using System.Net;
 using System.Threading.Tasks;
 

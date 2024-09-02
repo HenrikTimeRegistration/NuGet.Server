@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Functions.Extensions;
+using NuGet.Service.Core.Extensions;
 
 namespace NuGet.Functions;
 

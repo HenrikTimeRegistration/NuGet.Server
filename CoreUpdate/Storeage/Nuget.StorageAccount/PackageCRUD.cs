@@ -1,7 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using Microsoft.Extensions.Logging;
-using NuGet.Service.Core;
 using NuGet.Service.Core.Exceptions;
+using NuGet.Service.Core.Interfaces.Storage;
 using NuGet.Service.Core.ResoultObject;
 
 namespace Nuget.StorageAccount;

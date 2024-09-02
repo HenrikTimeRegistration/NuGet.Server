@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Service.Core;
+using NuGet.Service.Core.Interfaces.Logic;
 using System.Net;
 
 namespace NuGet.Functions;
@@ -16,8 +16,6 @@ public class NugetPackageUpdate : ControllerBase
     private ILogger<NugetPackage> Logger { get; init; }
 
     private IPackageCreateAndUpdate PackageCreateAndUpdate { get; init; }
-
-    private const string pcakageTjek = "C:\\Users\\HenrikHallenberg\\Downloads\\newtonsoft.json.13.0.3.nupkg";
 
     [Route("v2/package")]
     [HttpPut]

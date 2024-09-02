@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using NuGet.Service.Core;
 
-namespace NuGet.Functions.Extensions;
+namespace NuGet.Service.Core.Extensions;
 
 public static class QueryCollectionExtensions
 {

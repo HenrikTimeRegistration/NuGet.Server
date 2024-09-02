@@ -1,6 +1,6 @@
 ﻿using NuGet.Service.Core.ResoultObject;
 
-namespace NuGet.Service.Core;
+namespace NuGet.Service.Core.Interfaces.Storage;
 
 public interface INugetPackageCRUD
 {

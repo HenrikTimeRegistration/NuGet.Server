@@ -1,5 +1,6 @@
 ﻿using NuGet.Packaging;
-using NuGet.Service.Core;
+using NuGet.Service.Core.Interfaces.Logic;
+using NuGet.Service.Core.Interfaces.Storage;
 using NuGet.Service.Core.ResoultObject;
 using System.IO;
 using System.IO.Compression;

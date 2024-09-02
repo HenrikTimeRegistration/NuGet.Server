@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Hosting;
 using Nuget.FileStorage.Extensions;
 using NuGet.Service;
-using NuGet.Service.Core;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Resolvers;
 using Microsoft.OpenApi.Models;
@@ -13,6 +12,7 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Abstractions;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Http.Features;
 using System;
+using NuGet.Service.Core.Interfaces.Logic;
 
 namespace NuGet.Functions;
 

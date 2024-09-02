@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Nuget.FileStorage.Data;
-using NuGet.Service.Core;
+using NuGet.Service.Core.Interfaces.Storage;
 
 namespace Nuget.FileStorage.Extensions;
 
-public static class IServiceCollectionExtensions
+public static class ServiceCollectionExtensions
 {
     public static void AddFileStorage(this IServiceCollection serviceCollection, string ConfigName)
     {
@@ -14,5 +14,6 @@ public static class IServiceCollectionExtensions
             throw new NullReferenceException());
 
         serviceCollection.AddScoped<INugetPackageCRUD, PackageCRUD>();
+        serviceCollection.AddScoped<IGetNuGetPackageInfo, GetNuGetPackageInfo>();
     }
 }

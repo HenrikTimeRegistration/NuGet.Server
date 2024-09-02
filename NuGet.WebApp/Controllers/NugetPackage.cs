@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Service.Core;
+using NuGet.Service.Core.Interfaces.Logic;
+using NuGet.Service.Core.Interfaces.Storage;
 using NuGet.Service.Core.ResoultObject;
 using System.Net;
 
@@ -10,6 +11,7 @@ public class NugetPackage : ControllerBase
     public NugetPackage(ILogger<NugetPackage> log, IPackageData packageData, INugetPackageCRUD packageStoreage)
     {
         Logger = log;
+        PackageData = packageData;
     }
 
     private ILogger<NugetPackage> Logger { get; init; }
@@ -36,8 +38,6 @@ public class NugetPackage : ControllerBase
         {
             return new StatusCodeResult(StatusCodes.Status400BadRequest);
         }
-        await Task.CompletedTask;
-
 
         return new FileStreamResult(await packageStoreage.GetNugetPackageAsync(identity), "multipart/form-data");
     }

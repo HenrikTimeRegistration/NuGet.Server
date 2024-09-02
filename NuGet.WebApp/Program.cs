@@ -1,11 +1,10 @@
-
-using NuGet.Service.Core;
 using NuGet.Service;
 using Nuget.FileStorage.Extensions;
 using System.Reflection.PortableExecutable;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Service.Core.Interfaces.Logic;
 
 namespace NuGet.WebApp;
 
@@ -18,6 +17,7 @@ public class Program
         // Add services to the container.
         builder.Services.AddFileStorage("FileStorage");
         builder.Services.AddScoped<IPackageCreateAndUpdate, PackageCreateAndUpdate>();
+        builder.Services.AddScoped<IPackageData, PackageData>();
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

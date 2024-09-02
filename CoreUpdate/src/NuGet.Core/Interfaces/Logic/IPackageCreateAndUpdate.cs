@@ -1,4 +1,4 @@
-﻿namespace NuGet.Service.Core;
+﻿namespace NuGet.Service.Core.Interfaces.Logic;
 
 public interface IPackageCreateAndUpdate
 {
