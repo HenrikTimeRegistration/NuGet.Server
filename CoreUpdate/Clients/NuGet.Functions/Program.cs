@@ -24,18 +24,7 @@ public static class Program
     public static void Main(string[] args)
     {
         var host = new HostBuilder()
-            .ConfigureFunctionsWebApplication(x =>
-            {
-                x.Services.AddCors(options =>
-                {
-                    options.AddPolicy(name: "MyPolicy",
-                        policy =>
-                        {
-                            policy.WithOrigins("https://localhost:7130")
-                                .WithMethods("PUT");
-                        });
-                });
-            })
+            .ConfigureFunctionsWebApplication()
             .ConfigureServices((services) =>
             {
                 services.AddLogging();

@@ -21,21 +21,15 @@ namespace NuGet.Functions;
 
 public class NuGetPackageUpdate
 {
-    public NuGetPackageUpdate(ILogger<NugetPackage> log, IPackageCreateAndUpdate packageCreateAndUpdate, HttpClient httpClient, UploadLocation uploadLocation)
+    public NuGetPackageUpdate(ILogger<NugetPackage> log, IPackageCreateAndUpdate packageCreateAndUpdate)
     {
         Logger = log;
         PackageCreateAndUpdate = packageCreateAndUpdate;
-        HttpClient = httpClient;
-        UploadLocation = uploadLocation;
     }
 
     private ILogger<NugetPackage> Logger { get; init; }
 
     private IPackageCreateAndUpdate PackageCreateAndUpdate { get; init; }
-
-    private UploadLocation UploadLocation { get; init; }
-
-    private HttpClient HttpClient { get; init; }
 
     [Function(nameof(PutPackageAsync))]
     [OpenApiOperation(operationId: "NugetPackageUpdate", Visibility = OpenApiVisibilityType.Advanced)]
@@ -46,14 +40,6 @@ public class NuGetPackageUpdate
         HttpRequest req,
         CancellationToken token = default)
     {
-        
-        var ApiIndex = await HttpClient.GetFromJsonAsync<ApiIndex>(UploadLocation.NuGetApiIndexPath);
-        if (ApiIndex is not null)
-        {
-            var resource = ApiIndex.resources.Find(x => x.Type.StartsWith("PackagePublish"));
-            return new RedirectResult(resource.Id);
-        }
-
         var files = req.Form.Files;
         var file = files[0];
         await PackageCreateAndUpdate.UploadPackageAsync(file.OpenReadStream());
