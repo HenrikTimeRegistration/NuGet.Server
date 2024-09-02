@@ -13,7 +13,7 @@ public class NugetPackageMetadata : ControllerBase
         _logger = log;
     }
 
-    [Route("v3/PackageMetadata/{id}/index.josn")]
+    [Route("PackageMetadata/{id}/index.josn")]
     [HttpGet]
     public async Task<IActionResult> GetPackageMetadata(string id, CancellationToken token = default)
     {

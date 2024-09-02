@@ -14,10 +14,9 @@ public class NugetSeachByQuery : ControllerBase
 
     [Route("query")]
     [HttpGet]
-    public async Task<IActionResult> GetPackagesBuQuerySeach(HttpRequest req,
-        CancellationToken token = default)
+    public async Task<IActionResult> GetPackagesBuQuerySeach(CancellationToken token = default)
     {
-        var secretsTokens = req.Query.GetSecretsTokens();
+        var secretsTokens = Request.Query.GetSecretsTokens();
         return new OkResult();
     }
 }
