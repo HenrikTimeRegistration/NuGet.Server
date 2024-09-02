@@ -14,10 +14,10 @@ public class EntryController : ControllerBase
         var baseUrl = new Uri($"{url.Scheme}://{url.Authority}");
         var index = new ApiIndex() { version = "3.0.0" };
 
-        index.resources.Add(new() { Id = $"{baseUrl.AbsoluteUri}/v3-Packages", Type = "PackageBaseAddress/3.0.0" });
-        index.resources.Add(new() { Id = $"{baseUrl.AbsoluteUri}/v2/package", Type = "PackagePublish/2.0.0" });
-        //index.resources.Add(new() { Id = $"{baseUrl.AbsoluteUri}/PackageMetadata", Type = "RegistrationsBaseUrl/3.0.0-rc" });
-        index.resources.Add(new() { Id = $"{baseUrl.AbsoluteUri}/query", Type = "SearchQueryService/3.5.0" });
+        index.resources.Add(new() { Id = $"{baseUrl.AbsoluteUri}v3-Packages", Type = "PackageBaseAddress/3.0.0" });
+        index.resources.Add(new() { Id = $"{baseUrl.AbsoluteUri}v2/package", Type = "PackagePublish/2.0.0" });
+        //index.resources.Add(new() { Id = $"{baseUrl.AbsoluteUri}PackageMetadata", Type = "RegistrationsBaseUrl/3.0.0-rc" });
+        index.resources.Add(new() { Id = $"{baseUrl.AbsoluteUri}query", Type = "SearchQueryService/3.5.0" });
         return new OkObjectResult(index);
     }
 }

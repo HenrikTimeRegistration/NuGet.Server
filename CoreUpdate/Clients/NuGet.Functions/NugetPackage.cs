@@ -73,7 +73,7 @@ public class NugetPackage
     [OpenApiParameter("id", Description = "The package name")]
     [OpenApiParameter("version", Description = "The package version")]
     [OpenApiParameter("name", Description = "The package name same as the Id")]
-    [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(XmlDocument), Description = "The OK response")]
+    [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
     public async Task<IActionResult> GetPackageManifestAsync(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "v3-Packages/{id}/{version}/{name}.nuspec")]
         HttpRequest req,

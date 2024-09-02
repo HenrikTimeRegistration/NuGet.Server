@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Http.Features;
 using System;
 using NuGet.Service.Core.Interfaces.Logic;
+using Microsoft.Extensions.Configuration;
+using Nuget.FileStorage.Data;
+using NuGet.Functions.Options;
 
 namespace NuGet.Functions;
 
@@ -21,18 +24,16 @@ public static class Program
     public static void Main(string[] args)
     {
         var host = new HostBuilder()
-            .ConfigureFunctionsWebApplication(builder =>
+            .ConfigureFunctionsWebApplication(x =>
             {
-                builder.Services.Configure<KestrelServerOptions>(options =>
+                x.Services.AddCors(options =>
                 {
-                    options.AllowSynchronousIO = true;
-                    options.Limits.MaxRequestBodySize = null; // Set the limit to 100 MB
-                });
-                builder.Services.Configure<FormOptions>(options =>
-                {
-                    options.ValueLengthLimit = int.MaxValue;
-                    options.MultipartBodyLengthLimit = int.MaxValue;
-                    options.MultipartHeadersLengthLimit = int.MaxValue;
+                    options.AddPolicy(name: "MyPolicy",
+                        policy =>
+                        {
+                            policy.WithOrigins("https://localhost:7130")
+                                .WithMethods("PUT");
+                        });
                 });
             })
             .ConfigureServices((services) =>
@@ -51,6 +52,10 @@ public static class Program
                 });
                 services.AddFileStorage("FileStorage");
                 services.AddScoped<IPackageCreateAndUpdate, PackageCreateAndUpdate>();
+                services.AddScoped<IPackageData, PackageData>();
+                services.AddSingleton<UploadLocation>(x =>
+                    x.GetRequiredService<IConfiguration>().GetSection("UpladLocation")?.Get<UploadLocation>());
+                services.AddHttpClient();
             })
             .Build();
 
