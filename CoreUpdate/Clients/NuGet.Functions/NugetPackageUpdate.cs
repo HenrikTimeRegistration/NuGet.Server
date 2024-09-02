@@ -2,20 +2,21 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.Extensions.Logging;
+using NuGet.Service.Core.Interfaces.Logic;
+using NuGet.Service.Core.ResoultObject;
+using System.IO;
+using System.Net;
+using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
-using System.Net;
-using Microsoft.Azure.Functions.Worker.Http;
-using System.IO;
-using NuGet.Service.Core.Interfaces.Logic;
 
 namespace NuGet.Functions;
 
-public class NugetPackageUpdate
+public class NuGetPackageUpdate
 {
-    public NugetPackageUpdate(ILogger<NugetPackage> log, IPackageCreateAndUpdate packageCreateAndUpdate)
+    public NuGetPackageUpdate(ILogger<NugetPackage> log, IPackageCreateAndUpdate packageCreateAndUpdate)
     {
         Logger = log;
         PackageCreateAndUpdate = packageCreateAndUpdate;
@@ -25,9 +26,7 @@ public class NugetPackageUpdate
 
     private IPackageCreateAndUpdate PackageCreateAndUpdate { get; init; }
 
-    private const string pcakageTjek = "C:\\Users\\HenrikHallenberg\\Downloads\\newtonsoft.json.13.0.3.nupkg";
-
-    [Function(nameof(PutPackageAsync)), RequestFormLimits(ValueLengthLimit = 104857600, MultipartBodyLengthLimit = 104857600)]
+    [Function(nameof(PutPackageAsync))]
     [OpenApiOperation(operationId: "NugetPackageUpdate", Visibility = OpenApiVisibilityType.Advanced)]
     [OpenApiRequestBody(contentType: "multipart/form-data", bodyType: typeof(IFormFile), Required = true, Description = "Files to upload to Azure Storage")]
     [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.OK, Description = "The OK response")]
@@ -38,13 +37,7 @@ public class NugetPackageUpdate
     {
         var files = req.Form.Files;
         var file = files[0];
-        using MemoryStream ms = new MemoryStream();
-        await file.CopyToAsync(ms);
-        var test = ms.ToArray();
-        var refrens = File.ReadAllBytes(pcakageTjek);
-        var resoult = test.Equals(refrens);
-        Logger.LogInformation($"resoult {resoult}");
-        await PackageCreateAndUpdate.UploadPackageAsync(req.Body);
+        await PackageCreateAndUpdate.UploadPackageAsync(file.OpenReadStream());
         return new OkResult();
     }
 
@@ -59,9 +52,8 @@ public class NugetPackageUpdate
         string version,
         CancellationToken token = default)
     {
-        id = id.ToLower();
-        version = version.ToLower();
-        await PackageCreateAndUpdate.DeletePackageAsync(id, version);
+        var identity = new NuGetIdentity() { Id = id, Version = version };
+        await PackageCreateAndUpdate.DeletePackageAsync(identity, token);
         return new StatusCodeResult(StatusCodes.Status204NoContent);
     }
 
@@ -76,9 +68,8 @@ public class NugetPackageUpdate
         string version,
         CancellationToken token = default)
     {
-        id = id.ToLower();
-        version = version.ToLower();
-        await PackageCreateAndUpdate.RelistPackageAsync(id, version);
+        var identity = new NuGetIdentity() { Id = id, Version = version };
+        await PackageCreateAndUpdate.RelistPackageAsync(identity, token);
         return new OkResult();
     }
 }

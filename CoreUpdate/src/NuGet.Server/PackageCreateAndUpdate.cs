@@ -15,16 +15,14 @@ public class PackageCreateAndUpdate : IPackageCreateAndUpdate
         Storeage = storeage;
     }
 
-    private const string nusoec = ".nuspec";
-
     INugetPackageCRUD Storeage { get; set; }
 
-    public Task DeletePackageAsync(string packageName, string packageVersion, CancellationToken cancellationToken = default)
+    public Task DeletePackageAsync(NuGetIdentity nuGetIdentity, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task RelistPackageAsync(string packageName, string packageVersion, CancellationToken cancellationToken = default)
+    public Task RelistPackageAsync(NuGetIdentity nuGetIdentity, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Service.Core.Extensions;
 
-namespace NuGet.Functions;
+namespace NuGet.WebApp.Controllers;
 
 public class NugetSeachByQuery : ControllerBase
 {

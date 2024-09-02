@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using System.Net;
 
-namespace NuGet.Functions;
+namespace NuGet.WebApp.Controllers;
 
 public class NugetPackageMetadata : ControllerBase
 {

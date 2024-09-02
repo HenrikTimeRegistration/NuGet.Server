@@ -9,6 +9,7 @@ using NuGet.Service.Core.ResoultObject;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace NuGet.Functions;
 
@@ -17,13 +18,15 @@ public class NugetPackage
     public NugetPackage(ILogger<NugetPackage> log, IPackageData packageData, INugetPackageCRUD packageStoreage)
     {
         Logger = log;
+        PackageData = packageData;
+        PackageStoreage = packageStoreage;
     }
 
     private ILogger<NugetPackage> Logger { get; init; }
 
     private IPackageData PackageData { get; init; }
 
-    private INugetPackageCRUD packageStoreage { get; init; }
+    private INugetPackageCRUD PackageStoreage { get; init; }
 
     [Function(nameof(GetPackagesAsync))]
     [OpenApiOperation(operationId: "Packages")]
@@ -62,7 +65,7 @@ public class NugetPackage
         await Task.CompletedTask;
 
 
-        return new FileStreamResult(await packageStoreage.GetNugetPackageAsync(identity), "multipart/form-data");
+        return new FileStreamResult(await PackageStoreage.GetNugetPackageAsync(identity), "multipart/form-data");
     }
 
     [Function(nameof(GetPackageManifestAsync))]
@@ -70,7 +73,7 @@ public class NugetPackage
     [OpenApiParameter("id", Description = "The package name")]
     [OpenApiParameter("version", Description = "The package version")]
     [OpenApiParameter("name", Description = "The package name same as the Id")]
-    [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
+    [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(XmlDocument), Description = "The OK response")]
     public async Task<IActionResult> GetPackageManifestAsync(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "v3-Packages/{id}/{version}/{name}.nuspec")]
         HttpRequest req,
@@ -79,16 +82,13 @@ public class NugetPackage
         string name,
         CancellationToken token = default)
     {
-        id = id.ToLower();
-        version = version.ToLower();
-        name = name.ToLower();
-        if (!name.Equals($"{id}"))
+        var identity = new NuGetIdentity() { Id = id, Version = version };
+        if (!name.ToLower().Equals($"{id}"))
         {
             return new StatusCodeResult(StatusCodes.Status400BadRequest);
         }
-        await Task.CompletedTask;
 
-        return new OkResult();
+        return new OkObjectResult(PackageData.GetNuspec(identity));
     }
 }
 

@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Service.Core.Interfaces.Logic;
+using NuGet.Service.Core.ResoultObject;
 using System.Net;
+using System.Security.Principal;
 
-namespace NuGet.Functions;
+namespace NuGet.WebApp.Controllers;
 
-public class NugetPackageUpdate : ControllerBase
+public class NuGetPackageUpdate : ControllerBase
 {
-    public NugetPackageUpdate(ILogger<NugetPackage> log, IPackageCreateAndUpdate packageCreateAndUpdate)
+    public NuGetPackageUpdate(ILogger<NugetPackage> log, IPackageCreateAndUpdate packageCreateAndUpdate)
     {
         Logger = log;
         PackageCreateAndUpdate = packageCreateAndUpdate;
@@ -27,11 +29,10 @@ public class NugetPackageUpdate : ControllerBase
 
     [Route("v2/package/{id}/{version}")]
     [HttpDelete]
-    public async Task<IActionResult> DeletePackageAsync( string id, string version, CancellationToken token = default)
+    public async Task<IActionResult> DeletePackageAsync(string id, string version, CancellationToken token = default)
     {
-        id = id.ToLower();
-        version = version.ToLower();
-        await PackageCreateAndUpdate.DeletePackageAsync(id, version);
+        var identity = new NuGetIdentity() { Id = id, Version = version };
+        await PackageCreateAndUpdate.DeletePackageAsync(identity, token);
         return new StatusCodeResult(StatusCodes.Status204NoContent);
     }
 
@@ -39,9 +40,8 @@ public class NugetPackageUpdate : ControllerBase
     [HttpPost]
     public async Task<IActionResult> PostRelistPackageAsync(string id, string version, CancellationToken token = default)
     {
-        id = id.ToLower();
-        version = version.ToLower();
-        await PackageCreateAndUpdate.RelistPackageAsync(id, version);
+        var identity = new NuGetIdentity() { Id = id, Version = version };
+        await PackageCreateAndUpdate.RelistPackageAsync(identity, token);
         return new OkResult();
     }
 }
